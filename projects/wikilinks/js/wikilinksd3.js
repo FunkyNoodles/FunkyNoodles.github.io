@@ -36,11 +36,12 @@ d3.json("./js/graph_data.json", function (error, graph) {
 		.enter().append("line")
 		.attr("stroke-width", function (d) { return 1; });
 
-	var node = g.append("g")
-		.attr("class", "nodes")
-		.selectAll("circle")
+	var node = g.selectAll("circle")
 		.data(graph.nodes)
-		.enter().append("circle")
+		.enter().append("g")
+		.attr("class", "node");
+
+	node.append("circle")
 		.attr("r", 5)
 		.attr("fill", function (d) { return "#c65753"; })
 		.call(d3.drag()
@@ -50,6 +51,13 @@ d3.json("./js/graph_data.json", function (error, graph) {
 
 	node.append("title")
 		.text(function (d) { return d.id; });
+
+	node.append("text")
+		.attr("x", 100)
+		.attr("y", 500)
+		.attr("class", "node")
+		.style("opacity", 0)
+		.text(function (d) { return d.id });
 
 	simulation
 		.nodes(graph.nodes)
@@ -71,9 +79,13 @@ d3.json("./js/graph_data.json", function (error, graph) {
 			.attr("x2", function (d) { return d.target.x; })
 			.attr("y2", function (d) { return d.target.y; });
 
-		node
+		node.selectAll("circle")
 			.attr("cx", function (d) { return d.x; })
 			.attr("cy", function (d) { return d.y; });
+
+		node.selectAll("text")
+			.attr("x", function (d) { return d.x; })
+			.attr("y", function (d) { return d.y; });
 	}
 });
 
@@ -81,6 +93,7 @@ function dragstarted(d) {
 	if (!d3.event.active) simulation.alphaTarget(0.3).restart();
 	d.fx = d.x;
 	d.fy = d.y;
+	d3.select(this.parentNode).selectAll("text").style("opacity", 1);
 }
 
 function dragged(d) {
@@ -92,4 +105,5 @@ function dragended(d) {
 	if (!d3.event.active) simulation.alphaTarget(0);
 	d.fx = null;
 	d.fy = null;
+	d3.select(this.parentNode).selectAll("text").style("opacity", 0);	
 }

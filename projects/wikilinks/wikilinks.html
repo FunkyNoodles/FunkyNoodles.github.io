@@ -17,16 +17,30 @@
 	<link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css" type="text/css">
 
 	<style>
-        .links line {
-            stroke: #f4c542;
-            stroke-opacity: 0.6;
-        }
+		.links line {
+			stroke: #f4c542;
+			stroke-opacity: 0.6;
+		}
 
-        .nodes circle {
-            stroke: #fff;
-            stroke-width: 1.5px;
-        }
-    </style>
+		.node circle {
+			stroke: #fff;
+			stroke-width: 1.5px;
+		}
+
+		.node text {
+			stroke: #000;
+			stroke-width: 0.5px;
+			fill: #fff;
+			pointer-events: none;
+			font: 16px sans-serif;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+	</style>
 
 	<!-- Custom -->
 	<link rel="stylesheet" href="../../css/funkynoodles.css" type="text/css">
@@ -87,15 +101,15 @@
 			</div>
 		</div>
 	</header>
-	
+
 	<section id="about" class="bg-primary">
 		<div class="container">
 			<div class="row">
 				<div class="text-center">
 					<h2 class="section-heading">About</h2>
-					<svg id="d3-display", width="960" height="600" scroll="no"></svg>
+					<svg id="d3-display" , width="960" height="600" scroll="no"></svg>
 					<script>
-						document.getElementById("d3-display").onwheel = function (){return false;}
+						document.getElementById("d3-display").onwheel = function () { return false; }
 					</script>
 					<script src="https://d3js.org/d3.v4.min.js"></script>
 					<script src="./js/wikilinksd3.js"></script>
